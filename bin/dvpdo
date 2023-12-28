@@ -3,13 +3,13 @@
 # Setup 
 # Get the relative home of this file
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-	export DEVPOD_HOME=$(realpath $(dirname $0)/..)
+	export DVPDO_HOME=$(realpath $(dirname $0)/..)
 else
-	export DEVPOD_HOME=$(realpath $(dirname ${BASH_SOURCE})/..)
+	export DVPDO_HOME=$(realpath $(dirname ${BASH_SOURCE})/..)
 fi
-export DEVPOD_HOME
+export DVPDO_HOME
 # Import library
-. ${DEVPOD_HOME}/devpod/library.sh
+. ${DVPDO_HOME}/dvpdo/library.sh
 
 #
 # The main path
@@ -28,7 +28,7 @@ abs_path () {
         return 0
         ;;
     esac
-    echo $(realpath ${DEVPOD_HOME}/${1})
+    echo $(realpath ${DVPDO_HOME}/${1})
     return 0
 }
 
@@ -47,38 +47,38 @@ show_error() {
 #
 
 load_workspace() {
-    if [[ ! -z $1 && -e "${1}/devpod.env" ]] ; then
+    if [[ ! -z $1 && -e "${1}/dvpdo.env" ]] ; then
         echo "1"
-        export DEVPOD_WORKSPACE=$1
-    elif [[ -z ${DEVPOD_WORKSPACE} && -e "$(pwd)/devpod.env" ]] ; then
+        export DVPDO_WORKSPACE=$1
+    elif [[ -z ${DVPDO_WORKSPACE} && -e "$(pwd)/dvpdo.env" ]] ; then
         echo "2"
-        export DEVPOD_WORKSPACE=$(pwd)
+        export DVPDO_WORKSPACE=$(pwd)
     else
-        echo "Error: devpod.env not found in current directory"
+        echo "Error: dvpdo.env not found in current directory"
         exit 1
     fi
-    . ${DEVPOD_WORKSPACE}/devpod.env
-    DEVPOD_NAME=$(basename ${DEVPOD_WORKSPACE})
+    . ${DVPDO_WORKSPACE}/dvpdo.env
+    DVPDO_NAME=$(basename ${DVPDO_WORKSPACE})
 
     # Check sanity of the image
-    DEVPOD_IMAGE=$(abs_path ${DEVPOD_IMAGE})
-    if [[ ! -e ${DEVPOD_IMAGE}/Dockerfile ]]; then
-        echo "Error: invalid DEVPOD_IMAGE - cannot find ${DEVPOD_IMAGE}/Dockerfile"
+    DVPDO_IMAGE=$(abs_path ${DVPDO_IMAGE})
+    if [[ ! -e ${DVPDO_IMAGE}/Dockerfile ]]; then
+        echo "Error: invalid DVPDO_IMAGE - cannot find ${DVPDO_IMAGE}/Dockerfile"
         exit 1
     fi
 
     # Check sanity of the site
-    DEVPOD_SITE=$(abs_path ${DEVPOD_SITE})
-    if [[ ! -e ${DEVPOD_SITE}/site.env ]]; then
-        echo "Error: invalid DEVPOD_SITE - cannot find ${DEVPOD_SITE}/site.env"
+    DVPDO_SITE=$(abs_path ${DVPDO_SITE})
+    if [[ ! -e ${DVPDO_SITE}/site.env ]]; then
+        echo "Error: invalid DVPDO_SITE - cannot find ${DVPDO_SITE}/site.env"
         exit 1
     fi
-    . ${DEVPOD_SITE}/site.env
+    . ${DVPDO_SITE}/site.env
 }
 
 workspace_setup() {
     echo ""
-    echo "[devpod]"
+    echo "[dvpdo]"
     echo ""
 
     # Read the workspace
@@ -86,19 +86,19 @@ workspace_setup() {
 
     # Connect
     ensure_cli_openshift
-    k8s_auth_ensure ${DEVPOD_K8S_API} ${DEVPOD_K8S_NAMESPACE}
-    DEVPOD_USER=$(oc whoami)
+    k8s_auth_ensure ${DVPDO_K8S_API} ${DVPDO_K8S_NAMESPACE}
+    DVPDO_USER=$(oc whoami)
     echo ""
 
     # Dump results
-    echo "- DEVPOD_NAME=${DEVPOD_NAME}"
-    echo "- DEVPOD_USER=${DEVPOD_USER}"
-    echo "- DEVPOD_HOME=${DEVPOD_HOME}"
-    echo "- DEVPOD_WORKSPACE=${DEVPOD_WORKSPACE}"
-    echo "- DEVPOD_IMAGE=${DEVPOD_IMAGE}"
-    echo "- DEVPOD_SITE=${DEVPOD_SITE}"
-    echo "- DEVPOD_K8S_API=${DEVPOD_K8S_API}"
-    echo "- DEVPOD_K8S_NAMESPACE=${DEVPOD_K8S_NAMESPACE}"
+    echo "- DVPDO_NAME=${DVPDO_NAME}"
+    echo "- DVPDO_USER=${DVPDO_USER}"
+    echo "- DVPDO_HOME=${DVPDO_HOME}"
+    echo "- DVPDO_WORKSPACE=${DVPDO_WORKSPACE}"
+    echo "- DVPDO_IMAGE=${DVPDO_IMAGE}"
+    echo "- DVPDO_SITE=${DVPDO_SITE}"
+    echo "- DVPDO_K8S_API=${DVPDO_K8S_API}"
+    echo "- DVPDO_K8S_NAMESPACE=${DVPDO_K8S_NAMESPACE}"
     echo ""
 }
 
@@ -113,8 +113,8 @@ handle_cmd_template() {
 
     # Setup the usage text (show_usage truncates the indent)
     local usage='
-    [devpod - template]
-    Usage: devpod template <command> [args]
+    [dvpdo - template]
+    Usage: dvpdo template <command> [args]
         sub1: 
         sub2: 
     '
@@ -199,8 +199,8 @@ handle_cmd() {
 
     # Setup the usage text (show_usage truncates the indent)
     local usage='
-    [devpod]
-    Usage: devpod <command> <options> [args]
+    [dvpdo]
+    Usage: dvpdo <command> <options> [args]
     '
 
     # Parse for any global options and shift what we have consumed

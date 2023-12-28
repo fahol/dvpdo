@@ -7,7 +7,7 @@ setup() {
 
     # Load the library file
     FILE_DST=${ROOT}/.tmp/bin
-    load ${ROOT}/devpod/library.sh
+    load ${ROOT}/dvpdo/library.sh
 
     # Test what we need
     assert_exist ${FILE_DST}/oc
@@ -33,7 +33,7 @@ teardown() {
 }
 
 @test "library.sh can be loaded properly" {
-    assert_equal ${FILE_HOME} $(realpath ${ROOT}/devpod)
+    assert_equal ${FILE_HOME} $(realpath ${ROOT}/dvpdo)
     assert_exist ${FILE_HOME}/library.sh
 }
 

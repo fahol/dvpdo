@@ -10,8 +10,8 @@ setup() {
     assert_exist ${FILE_DST}/oc
     assert_exist ${FILE_DST}/kubectl
 
-    # The devpod commandline file
-    DP=${ROOT}/bin/devpod
+    # The dvpdo commandline file
+    DP=${ROOT}/bin/dvpdo
 
     # Check k8s auth
     skip_k8s_if_not_auth() {
@@ -22,20 +22,20 @@ setup() {
     }
 }
 
-@test "devpod can be run as a command" {
+@test "dvpdo can be run as a command" {
     ${DP}
 }
 
-@test "devpod can be loaded properly" {
+@test "dvpdo can be loaded properly" {
     load ${DP}
-    assert_exist ${DEVPOD_HOME}/bin/devpod
-    assert_equal ${DEVPOD_HOME} $(realpath ${ROOT})
+    assert_exist ${DVPDO_HOME}/bin/dvpdo
+    assert_equal ${DVPDO_HOME} $(realpath ${ROOT})
 }
 
-@test "devpod_handle_cmd - basic dispatch" {
+@test "dvpdo_handle_cmd - basic dispatch" {
     # Help message
     run -0 ${DP} -h
-    assert_output --partial '[devpod]'
+    assert_output --partial '[dvpdo]'
 
     # Non existant command
     run -127 ${DP} non-existant-lvl1
@@ -43,10 +43,10 @@ setup() {
 
     # The template command for testing
     run -0 ${DP} template
-    assert_line --index 0 '[devpod - template]'
+    assert_line --index 0 '[dvpdo - template]'
 
     run -0 ${DP} template -h
-    assert_line --index 0 '[devpod - template]'
+    assert_line --index 0 '[dvpdo - template]'
 
     run -0 ${DP} template sub1
     assert_line --index 0 'command sub1'

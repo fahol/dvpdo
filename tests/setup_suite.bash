@@ -10,7 +10,7 @@ setup_suite() {
 
     # Load the library itself
     export FILE_DST=${ROOT}/.tmp/bin
-    load ${ROOT}/devpod/library.sh
+    load ${ROOT}/dvpdo/library.sh
 
     # Ensure the command line utilities
     ensure_cli_openshift ${FILE_DST}
