@@ -1,5 +1,4 @@
-devpod - development pod manager utility
-========================================
+dvpdo - DeVelopment pod(PDO) manager utility
+============================================
 
-A tool that helps maintaining a development pod on kubernetes.
-
+Toolkit that helps maintaining development pods on kubernetes.
