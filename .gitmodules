@@ -10,3 +10,9 @@
 [submodule "tests/lib/bats-assert"]
 	path = tests/lib/bats-assert
 	url = https://github.com/bats-core/bats-assert
+[submodule "tests/lib/bats-detik"]
+	path = tests/lib/bats-detik
+	url = https://github.com/bats-core/bats-detik
+[submodule "lib/btbx"]
+	path = lib/btbx
+	url = https://github.com/fahol/btbx
