@@ -63,8 +63,8 @@ k8s_auth_ensure() {
   fi
 
   echo "Authenticating to ${URL}"
-  read -p "Enter your NCCS account: " USERNAME
-  read -s -p "PASSCODE : " PASSWORD
+  read -p "Enter your username : " USERNAME
+  read -s -p "Password : " PASSWORD
   echo
 
   # Authenticate using the provided username and password
