@@ -9,7 +9,7 @@ else
 fi
 export DVPDO_HOME
 # Import library
-. ${DVPDO_HOME}/dvpdo/library.sh
+. ${DVPDO_HOME}/lib/btbx/lib/btbx.sh
 
 #
 # The main path

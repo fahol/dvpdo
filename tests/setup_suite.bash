@@ -8,9 +8,9 @@ setup_suite() {
     load ${ROOT}/tests/lib/bats-assert/load
     load ${ROOT}/tests/lib/bats-file/load
 
-    # Load the library itself
+    # Load btbx (external)
     export FILE_DST=${ROOT}/.tmp/bin
-    load ${ROOT}/dvpdo/library.sh
+    load ${ROOT}/lib/btbx/lib/btbx.sh
 
     # Ensure the command line utilities
     ensure_cli_openshift ${FILE_DST}
