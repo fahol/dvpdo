@@ -4,6 +4,8 @@ setup() {
     load ${ROOT}/tests/lib/bats-support/load
     load ${ROOT}/tests/lib/bats-assert/load
     load ${ROOT}/tests/lib/bats-file/load
+    load ${ROOT}/tests/lib/bats-detik/lib/utils
+    load ${ROOT}/tests/lib/bats-detik/lib/detik
 
     # Load the library file
     FILE_DST=${ROOT}/.tmp/bin
