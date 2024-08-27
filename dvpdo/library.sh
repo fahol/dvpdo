@@ -214,7 +214,7 @@ adhoc_pod_start() {
   fi
   if ${OC} delete --grace-period=1 --timeout=5s po ${POD_NAME}; then echo ""; fi
   ${OC} run --image=${IMG} ${POD_NAME} sleep ${TIMEOUT}
-  while [[ $(kubectl get pods ${POD_NAME} -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do
+  while [[ $(${OC} get pods ${POD_NAME} -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do
     echo "waiting for pod" && sleep 1;
   done
   return 0
