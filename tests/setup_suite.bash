@@ -9,6 +9,7 @@ setup_suite() {
     load ${ROOT}/tests/lib/bats-file/load
 
     # Load the dvpdo commandline file as a library
+    FILE_DST=${ROOT}/.tmp/bin
     . ${ROOT}/bin/dvpdo
 
     # Ensure the command line utilities
