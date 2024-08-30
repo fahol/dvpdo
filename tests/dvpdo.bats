@@ -28,6 +28,21 @@ setup() {
 }
 
 #
+# dvpdo as a module and command
+#
+
+@test "dvpdo can be run as a command" {
+    ${DP}
+}
+
+@test "dvpdo can be loaded properly" {
+    load ${DP}
+    assert_exist ${DVPDO_HOME}/bin/dvpdo
+    assert_equal ${DVPDO_HOME} $(realpath ${ROOT})
+}
+
+
+#
 # Downloaders for external binaries
 #
 
@@ -62,20 +77,9 @@ setup() {
     adhoc_pod_exec bash -l -c '[[ -e /bin && -e /sbin ]]'
 }
 
-
-@test "dvpdo can be run as a command" {
-    ${DP}
-}
-
 #
 # Main command
 #
-
-@test "dvpdo can be loaded properly" {
-    load ${DP}
-    assert_exist ${DVPDO_HOME}/bin/dvpdo
-    assert_equal ${DVPDO_HOME} $(realpath ${ROOT})
-}
 
 @test "dvpdo_handle_cmd - basic dispatch" {
     # Help message
