@@ -57,7 +57,7 @@ k8s_auth_ensure() {
   NS=$2
   # Test whether we're authenticated
   if with_timeout 3 ${OC} -s ${URL} whoami &> /dev/null; then
-    echo "Already authenticated to ${URL} ($(oc config current-context))"
+    echo "Already authenticated to ${URL} ($(${OC} config current-context))"
     return 0
   fi
 
@@ -72,7 +72,7 @@ k8s_auth_ensure() {
     if [[ ! -z ${NS} ]]; then
       ${OC} -s ${URL} project ${NS} &> ${NS}
     fi
-    echo "Authentication successful to ${URL} ($(oc config current-context))"
+    echo "Authentication successful to ${URL} ($(${OC} config current-context))"
     return 0
   fi
 
@@ -91,7 +91,6 @@ function ensure_cli_openshift() {
   if [[ ! -z ${1} ]]; then
     FILE_DST=$1
   fi
-  echo ${FILE_DST} 1&>2 2&>3
   if [[ -e ${FILE_DST}/oc && -e ${FILE_DST}/kubectl ]]; then
     return 0
   fi
