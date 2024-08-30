@@ -5,10 +5,15 @@ setup() {
     load ${ROOT}/tests/lib/bats-assert/load
     load ${ROOT}/tests/lib/bats-file/load
 
+    # Load dvpdo
+    . ${ROOT}/bin/dvpdo
+
     # Ensure we re-use the downloaded binaries
     FILE_DST=${ROOT}/.tmp/bin
     assert_exist ${FILE_DST}/oc
     assert_exist ${FILE_DST}/kubectl
+
+    TMP_DIR=${ROOT}/.tmp/bin
 
     # The dvpdo commandline file
     DP=${ROOT}/bin/dvpdo
@@ -22,9 +27,49 @@ setup() {
     }
 }
 
+#
+# Downloaders for external binaries
+#
+
+@test "ensure_cli - openshift client can be downloaded and run properly" {
+    ensure_cli_openshift ${TMP_DIR}
+    # Openshift CLI
+    assert_exist ${TMP_DIR}/oc
+    ${TMP_DIR}/oc
+    # Kubectl CLI
+    assert_exist ${TMP_DIR}/kubectl
+    ${TMP_DIR}/kubectl
+}
+
+@test "ensure_cli - vscode can be downloaded an run properly" {
+    ensure_cli_vscode ${TMP_DIR}
+    assert_exist ${TMP_DIR}/code
+    ${TMP_DIR}/code --help
+}
+
+@test "ensure_cli - micromamba can be downloaded an run properly" {
+    ensure_cli_micromamba ${TMP_DIR}
+    assert_exist ${TMP_DIR}/micromamba
+    ${TMP_DIR}/micromamba
+}
+
+#
+# adhoc_pod on k8s
+#
+
+@test "adhoc_pod_exec - check basics" {
+    skip_k8s_if_not_auth
+    adhoc_pod_exec bash -l -c '[[ -e /bin && -e /sbin ]]'
+}
+
+
 @test "dvpdo can be run as a command" {
     ${DP}
 }
+
+#
+# Main command
+#
 
 @test "dvpdo can be loaded properly" {
     load ${DP}
