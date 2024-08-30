@@ -8,9 +8,8 @@ setup_suite() {
     load ${ROOT}/tests/lib/bats-assert/load
     load ${ROOT}/tests/lib/bats-file/load
 
-    # Load the library itself
-    export FILE_DST=${ROOT}/.tmp/bin
-    load ${ROOT}/dvpdo/library.sh
+    # Load the dvpdo commandline file as a library
+    . ${ROOT}/bin/dvpdo
 
     # Ensure the command line utilities
     ensure_cli_openshift ${FILE_DST}
