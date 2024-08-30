@@ -6,10 +6,10 @@ setup() {
     load ${ROOT}/tests/lib/bats-file/load
 
     # Load dvpdo
+    FILE_DST=${ROOT}/.tmp/bin
     . ${ROOT}/bin/dvpdo
 
     # Ensure we re-use the downloaded binaries
-    FILE_DST=${ROOT}/.tmp/bin
     assert_exist ${FILE_DST}/oc
     assert_exist ${FILE_DST}/kubectl
 
