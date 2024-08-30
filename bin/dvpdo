@@ -197,6 +197,12 @@ ensure_cli_micromamba() {
   return 0
 }
 
+# Adhoc pods on k8s
+
+adhoc_pod_name() {
+    echo "adhoc-pod-k8s-$(${OC} whoami)"
+}
+
 adhoc_pod_start() {
   local POD_NAME=$(adhoc_pod_name)
   local IMG=$1
