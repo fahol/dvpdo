@@ -322,6 +322,345 @@ workspace_setup() {
 }
 
 #
+# Command: login
+#
+
+handle_cmd_login() {
+    #
+    # subcommand: login
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - login]
+        A facade for the `oc login` command of the `oc` CLI utility for openshift.
+        Asks for the credentials if kubernetes is not accessible.
+
+    Usage: dvpdo login <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+#
+# Command: init
+#
+
+handle_cmd_init() {
+    #
+    # subcommand: init
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - init]
+        Initialize a dvpdo site in a local directory. The `devpdo` utility
+        will initialize a workspace site with basic setup.
+
+    Usage: dvpdo init <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
+# Command: apply
+#
+
+handle_cmd_apply() {
+    #
+    # subcommand: apply
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - apply]
+        Deploy the manifests to the target kubernetes namespace.
+        Run preliminary setup scripts.
+
+    Usage: dvpdo apply <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
+# Command: build
+#
+
+handle_cmd_build() {
+    #
+    # subcommand: build
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - build]
+        Build the devpdo image defined by the site Dockerfile.
+
+    Usage: dvpdo build <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
+# Command: start
+#
+
+handle_cmd_start() {
+    #
+    # subcommand: start
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - start]
+        Start the dev pod environment. Update the site with the new image
+        if necessary.
+
+    Usage: dvpdo start <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
+# Command: stop
+#
+
+handle_cmd_stop() {
+    #
+    # subcommand: stop
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - stop]
+        Stop or pause the dev pod.  Workspace is not destroyed
+
+    Usage: dvpdo stop <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
+# Command: delete
+#
+
+handle_cmd_delete() {
+    #
+    # subcommand: delete
+    #
+
+    # Setup the usage text (show_usage truncates the indent)
+    local usage='
+    [dvpdo - delete]
+        Delete all the manifests from openshift
+
+    Usage: dvpdo delete <command> [args]
+    '
+
+    # Parse for any global options and shift what we have consumed
+    local opt
+    while getopts "h" opt; do
+        case ${opt} in
+            h)
+                show_usage "${usage}"
+                return 0
+                ;;
+            \?)
+                show_error "Invalid option -${OPTARG}"
+                show_usage "${usage}"
+                return 1
+                ;;
+            :)
+                show_error "Option -${OPTARG} requires an argument"
+                show_usage "${usage}"
+                return 1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # Handle the case where we don't have any arguments
+    if [[ ${#} -lt 1 ]]; then
+        show_usage "${usage}"
+        return 0
+    fi
+    return ${ret}
+}
+
+
+#
 # Command: template
 #
 
@@ -419,7 +758,16 @@ handle_cmd() {
     # Setup the usage text (show_usage truncates the indent)
     local usage='
     [dvpdo]
+        Devpdo is a utility to manage the development environment on Openshift.
+
     Usage: dvpdo <command> <options> [args]
+        init   : Initializes the dvpdo workspace by loading the necessary environment variables and configurations.
+        login  : Authenticates the user to the specified Openshift cluster.
+        apply  : Applies the configuration files in the dvpdo workspace to the Openshift cluster.
+        build  : Builds the Docker image specified in the dvpdo workspace.
+        start  : Starts the specified resources in the Openshift cluster.
+        stop   : Stops the specified resources in the Openshift cluster.
+        delete : Deletes the specified resources from the Openshift cluster.
     '
 
     # Parse for any global options and shift what we have consumed
@@ -458,6 +806,34 @@ handle_cmd() {
         # We will leave the "template" dispatcher for testing
         # TODO: call handlers (either command or dispatch)
         handle_cmd_template $@
+        ret=${?}
+        ;;
+    login)
+        handle_cmd_login $@
+        ret=${?}
+        ;;
+    init)
+        handle_cmd_init $@
+        ret=${?}
+        ;;
+    apply)
+        handle_cmd_apply $@
+        ret=${?}
+        ;;
+    build)
+        handle_cmd_build $@
+        ret=${?}
+        ;;
+    start)
+        handle_cmd_start $@
+        ret=${?}
+        ;;
+    stop)
+        handle_cmd_stop $@
+        ret=${?}
+        ;;
+    delete)
+        handle_cmd_delete $@
         ret=${?}
         ;;
     *)
